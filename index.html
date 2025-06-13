@@ -1,193 +1,503 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <title>CodePen - Full-Screen Responsive Image Slider</title>
-  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'>
-  <link rel="stylesheet" href="./style.css">
-<style>
-  @import url("https://fonts.googleapis.com/css2?family=Lexend:wght@400;700&display=swap");
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: "Lexend", sans-serif;
-  background-color: #f9f9fc;
-  color: #e5ebf3;
-}
-
-.slider {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-}
-
-.slide {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: opacity 0.4s ease-in-out;
-}
-
-.slide.current {
-  opacity: 1;
-}
-
-
-.slide:first-child {
-  background: url("1.png") no-repeat
-    center top/cover;
-}
-
-.slide:nth-child(2) {
-  background: url("2.png") no-repeat
-    center top/cover;
-}
-
-.slide:nth-child(3) {
-  background: url("3.png") no-repeat
-    center top/cover;
-}
-
-.slide:nth-child(4) {
-  background: url("4.png") no-repeat
-    center top/cover;
-}
-
-  .slide:nth-child(5) {
-  background: url("5.png") no-repeat
-    center top/cover;
-}
-  .slide:nth-child(6) {
-  background: url("6.png") no-repeat
-    center top/cover;
-}
-    .slide:nth-child(7) {
-  background: url("7.png") no-repeat
-    center top/cover;
-}
-.buttons button#prev {
-  position: absolute;
-  top: 50%;
-  left: 1rem;
-}
-
-.buttons button#next {
-  position: absolute;
-  top: 50%;
-  right: 1rem;
-}
-
-.buttons button {
-  border: 2px solid #e5ebf3;
-  background-color: transparent;
-  color: #e5ebf3;
-  cursor: pointer;
-  padding: 13px 15px;
-  border-radius: 50%;
-  outline: none;
-}
-
-.buttons button:hover {
-  background-color: #e5ebf3;
-  color: #f9f9fc;
-}
-
-@media (min-width: 640px) and (min-height: 640px) {
-  .slide .content {
-    bottom: 70px;
-    left: -600px;
-    width: 600px;
-    padding: 2rem;
-    line-height: 1.6;
-  }
-
-  .slide .content h1 {
-    font-size: 2rem;
-  }
-
-  .slide.current .content {
-    transform: translateX(600px);
-  }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrimeroEdge Lead Generating Tech Conference Management (2024) | Tesla Cadena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: rgba(233, 255, 241, 0.4); /* Even more transparent green */
+            color: #333;
+            scroll-behavior: smooth;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #0a8a3d 0%, #2ecc71 100%);
+        }
+        
+        .stat-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .view-option {
+            transition: all 0.3s ease;
+        }
+        
+        .view-option:hover {
+            transform: translateY(-3px);
+        }
+        
+        .quote-mark {
+            font-size: 4rem;
+            line-height: 0;
+            position: absolute;
+            color: rgba(46, 204, 113, 0.15);
+        }
+        
+        .quote-mark.left {
+            top: 20px;
+            left: 10px;
+        }
+        
+        .quote-mark.right {
+            bottom: 0;
+            right: 10px;
+        }
+        
+        .toc-link {
+            transition: all 0.2s ease;
+        }
+        
+        .toc-link:hover {
+            color: #2ecc71;
+            transform: translateX(3px);
+        }
+        
+        .toc-link.active {
+            color: #2ecc71;
+            font-weight: 500;
+        }
+        
+        .sticky-toc {
+            position: sticky;
+            top: 2rem;
+        }
+        
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 99;
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Increased line height for main title */
+        .main-title {
+            line-height: 1.8; /* Increased line height */
+        }
+        
+        /* Back button styles */
+        .back-button {
+            transition: all 0.3s ease;
+        }
+        
+        .back-button:hover {
+            transform: translateX(-5px);
+        }
+        
+        /* Navigation styles */
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: white;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .navbar {
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+    </style>
 </head>
-
 <body>
-  <!-- partial:index.partial.html -->
-  <div class="slider">
-    <div class="slide current"></div>
-    <div class="slide"></div>
-    <div class="slide"></div>
-    <div class="slide"></div>
-    <div class="slide"></div>
-    <div class="slide"></div>
-    <div class="slide"></div>
-
-  </div>
-  <div class="buttons">
-    <button id="prev"><i class="fas fa-arrow-left"></i></button>
-    <button id="next"><i class="fas fa-arrow-right"></i></button>
-  </div>
-  <!-- partial -->
-  <script>
-    const slides = document.querySelectorAll(".slide");
-    const nextButton = document.getElementById("next");
-    const prevButton = document.getElementById("prev");
-    const auto = true;
-    const intervalTime = 5000;
-    let slideInterval;
-
-    const nextSlide = () => {
-      const current = document.querySelector(".current");
-      current.classList.remove("current");
-      if (current.nextElementSibling) {
-        current.nextElementSibling.classList.add("current");
-      } else {
-        slides[0].classList.add("current");
-      }
-    };
-
-    const prevSlide = () => {
-      const current = document.querySelector(".current");
-      current.classList.remove("current");
-      if (current.previousElementSibling) {
-        current.previousElementSibling.classList.add("current");
-      } else {
-        slides[slides.length - 1].classList.add("current");
-      }
-    };
-
-    nextButton.addEventListener("click", () => {
-      nextSlide();
-      if (auto) {
-        clearInterval(slideInterval);
-        slideInterval = setInterval(nextSlide, intervalTime);
-      }
-    });
-    prevButton.addEventListener("click", () => {
-      prevSlide();
-      if (auto) {
-        clearInterval(slideInterval);
-        slideInterval = setInterval(nextSlide, intervalTime);
-      }
-    });
-
-    if (auto) {
-      slideInterval = setInterval(nextSlide, intervalTime);
-    }
-
-  </script>
-
+    <!-- Navigation Bar -->
+    <nav class="navbar fixed w-full z-50 bg-green-600 bg-opacity-90 text-white shadow-md">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <!-- Empty div to maintain spacing -->
+                <div class="w-8"></div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="https://teslacadena.com/about-me" class="nav-link">About Me</a>
+                    <a href="https://linkedin.com/in/teslacadena" class="nav-link">LinkedIn</a>
+                    <a href="https://teslacadena.com/services" class="nav-link">Services</a>
+                    <a href="https://calendly.com/teslacadena/one-on-one-chat?month=2025-06" class="nav-link">Collaborate</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden focus:outline-none" id="mobile-menu-button">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Navigation (Hidden by default) -->
+            <div class="md:hidden hidden mt-3 pb-2" id="mobile-menu">
+                <div class="flex flex-col space-y-3">
+                    <a href="https://teslacadena.com/about-me" class="block py-2 hover:bg-green-700 px-2 rounded">About Me</a>
+                    <a href="https://linkedin.com/in/teslacadena" class="block py-2 hover:bg-green-700 px-2 rounded">LinkedIn</a>
+                    <a href="https://teslacadena.com/services" class="block py-2 hover:bg-green-700 px-2 rounded">Services</a>
+                    <a href="https://calendly.com/teslacadena/one-on-one-chat?month=2025-06" class="block py-2 hover:bg-green-700 px-2 rounded">Collaborate</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section (with padding-top to account for navbar) -->
+    <header id="top" class="gradient-bg text-white py-20 px-4 md:px-0 pt-28">
+        <div class="container mx-auto max-w-5xl">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 main-title">PrimeroEdge Lead Generating Tech Conference Management (2024)</h1>
+            <p class="text-xl opacity-90 max-w-3xl mb-8">How I drove PrimeroEdge's largest reception yet and exceeded lead generation goals at a major industry conference.</p>
+            
+            <!-- Back to Portfolio Button (moved below the description) -->
+            <a href="https://teslacadena.com" class="inline-flex items-center text-white bg-white bg-opacity-20 hover:bg-opacity-30 py-2 px-4 rounded-lg back-button">
+                <i class="fas fa-arrow-left mr-2"></i>
+                Go Back to Portfolio
+            </a>
+        </div>
+    </header>
+    
+    <!-- View Options -->
+    <section class="bg-white py-8 px-4 md:px-0 border-b">
+        <div class="container mx-auto max-w-5xl">
+            <div class="bg-gray-50 p-6 rounded-lg">
+                <h3 class="text-xl font-semibold mb-4 flex items-center">
+                    Ways to View This Case Study
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <a href="#" class="view-option bg-white p-5 rounded-lg shadow-md flex flex-col items-center text-center hover:bg-gray-50">
+                        <div class="bg-green-100 p-3 rounded-full mb-3">
+                            <i class="fas fa-file-pdf text-green-600 text-xl"></i>
+                        </div>
+                        <h4 class="font-medium mb-1">Download PDF</h4>
+                        <p class="text-sm text-gray-600">Full detailed document</p>
+                    </a>
+                    <a href="https://issuu.com/teslacannon/docs/lead_generating_conference_management?fr=sYTFkYzg0OTMwMzY" target="_blank" class="view-option bg-white p-5 rounded-lg shadow-md flex flex-col items-center text-center hover:bg-gray-50">
+                        <div class="bg-green-100 p-3 rounded-full mb-3">
+                            <i class="fas fa-book-open text-green-600 text-xl"></i>
+                        </div>
+                        <h4 class="font-medium mb-1">Read as Booklet</h4>
+                        <p class="text-sm text-gray-600">Interactive flipbook</p>
+                    </a>
+                    <a href="#case-content" class="view-option bg-white p-5 rounded-lg shadow-md flex flex-col items-center text-center hover:bg-gray-50">
+                        <div class="bg-green-100 p-3 rounded-full mb-3">
+                            <i class="fas fa-scroll text-green-600 text-xl"></i>
+                        </div>
+                        <h4 class="font-medium mb-1">Scroll Below</h4>
+                        <p class="text-sm text-gray-600">Read abbreviated version here</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Main Content with Table of Contents -->
+    <div id="case-content" class="container mx-auto max-w-5xl py-12 px-4 md:px-0">
+        <div class="flex flex-col md:flex-row gap-8">
+            <!-- Table of Contents (Sidebar) -->
+            <div class="md:w-1/4">
+                <div class="bg-white p-6 rounded-lg shadow-md sticky-toc">
+                    <h3 class="text-lg font-semibold mb-4 pb-2 border-b border-gray-200">Table of Contents</h3>
+                    <ul class="space-y-3">
+                        <li>
+                            <a href="#overview" class="toc-link flex items-center text-gray-700 hover:text-green-600">
+                                <i class="fas fa-circle text-xs mr-2 text-green-500"></i>
+                                Overview
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#results" class="toc-link flex items-center text-gray-700 hover:text-green-600">
+                                <i class="fas fa-circle text-xs mr-2 text-green-500"></i>
+                                Results
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#my-role" class="toc-link flex items-center text-gray-700 hover:text-green-600">
+                                <i class="fas fa-circle text-xs mr-2 text-green-500"></i>
+                                My Role
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#praise" class="toc-link flex items-center text-gray-700 hover:text-green-600">
+                                <i class="fas fa-circle text-xs mr-2 text-green-500"></i>
+                                Praise
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="md:w-3/4">
+                <!-- Overview Section -->
+                <section id="overview" class="mb-16 scroll-mt-24">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-1 bg-green-600 mr-4"></div>
+                        <h2 class="text-2xl font-bold">Overview</h2>
+                    </div>
+                    <p class="text-lg leading-relaxed mb-6">
+                        At the 2024 Child Nutrition Access and Accountability through Technology (CNAAT) conference, I led the full strategy, execution, and promotion of PrimeroEdge's presence—driving the brand's largest reception yet and exceeding lead generation goals. This out-of-state event required cross-functional alignment, real-time logistics management, and strict adherence to USDA branding regulations.
+                    </p>
+                </section>
+                
+                <!-- Results Section -->
+                <section id="results" class="mb-16 scroll-mt-24">
+                    <div class="flex items-center mb-8">
+                        <div class="w-12 h-1 bg-green-600 mr-4"></div>
+                        <h2 class="text-2xl font-bold">Results</h2>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                        <!-- Thought Leadership Card -->
+                        <div class="stat-card bg-white p-6 rounded-lg shadow-md border-t-4 border-green-600">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="font-semibold text-gray-600">Thought Leadership</h3>
+                                <i class="fas fa-lightbulb text-green-600"></i>
+                            </div>
+                            <div class="space-y-3">
+                                <p class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> 2 expert-led presentations</p>
+                                <p class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> 2 live software demos</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Lead Generation Card -->
+                        <div class="stat-card bg-white p-6 rounded-lg shadow-md border-t-4 border-green-600">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="font-semibold text-gray-600">Lead Generation</h3>
+                                <i class="fas fa-chart-line text-green-600"></i>
+                            </div>
+                            <div class="space-y-3">
+                                <p class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> 9 qualified leads</p>
+                                <p class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> 2 booked demos</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Tech & Taste Reception Card -->
+                        <div class="stat-card bg-white p-6 rounded-lg shadow-md border-t-4 border-green-600">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="font-semibold text-gray-600">Tech & Taste Reception</h3>
+                                <i class="fas fa-glass-cheers text-green-600"></i>
+                            </div>
+                            <div class="space-y-3">
+                                <p class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> 40+ prospect attendees</p>
+                                <p class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> 10-person team presence</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Financial Impact Card -->
+                        <div class="stat-card bg-white p-6 rounded-lg shadow-md border-t-4 border-green-600">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="font-semibold text-gray-600">Financial Impact</h3>
+                                <i class="fas fa-dollar-sign text-green-600"></i>
+                            </div>
+                            <div class="space-y-3">
+                                <p class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> $200K projected revenue</p>
+                                <p class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> 689% estimated ROI</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- My Role Section -->
+                <section id="my-role" class="mb-16 scroll-mt-24">
+                    <div class="flex items-center mb-8">
+                        <div class="w-12 h-1 bg-green-600 mr-4"></div>
+                        <h2 class="text-2xl font-bold">My Role</h2>
+                    </div>
+                    
+                    <p class="text-lg mb-6">
+                        I managed all aspects of the event from internal team prep to external marketing:
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <div class="flex items-center mb-4">
+                                <div class="bg-green-100 p-2 rounded-full mr-3">
+                                    <i class="fas fa-paint-brush text-green-600"></i>
+                                </div>
+                                <h3 class="font-semibold">Brand Experience</h3>
+                            </div>
+                            <p>Built a branded experience despite heavy USDA restrictions</p>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <div class="flex items-center mb-4">
+                                <div class="bg-green-100 p-2 rounded-full mr-3">
+                                    <i class="fas fa-plane text-green-600"></i>
+                                </div>
+                                <h3 class="font-semibold">Logistics</h3>
+                            </div>
+                            <p>Coordinated travel, shipping, and vendor logistics</p>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <div class="flex items-center mb-4">
+                                <div class="bg-green-100 p-2 rounded-full mr-3">
+                                    <i class="fas fa-bullhorn text-green-600"></i>
+                                </div>
+                                <h3 class="font-semibold">Marketing</h3>
+                            </div>
+                            <p>Created social and email campaigns for pre/post-show outreach</p>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <div class="flex items-center mb-4">
+                                <div class="bg-green-100 p-2 rounded-full mr-3">
+                                    <i class="fas fa-palette text-green-600"></i>
+                                </div>
+                                <h3 class="font-semibold">Design</h3>
+                            </div>
+                            <p>Designed all collateral, including presentations and flyers</p>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-lg shadow-md md:col-span-2">
+                            <div class="flex items-center mb-4">
+                                <div class="bg-green-100 p-2 rounded-full mr-3">
+                                    <i class="fas fa-users-cog text-green-600"></i>
+                                </div>
+                                <h3 class="font-semibold">Team Alignment</h3>
+                            </div>
+                            <p>Facilitated team alignment with detailed FAQs and checklists</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Testimonial Section -->
+                <section id="praise" class="mb-16 scroll-mt-24">
+                    <div class="flex items-center mb-8">
+                        <div class="w-12 h-1 bg-green-600 mr-4"></div>
+                        <h2 class="text-2xl font-bold">Praise</h2>
+                    </div>
+                    
+                    <div class="bg-white p-8 rounded-lg shadow-md relative">
+                        <span class="quote-mark left">"</span>
+                        <blockquote class="text-xl italic text-gray-700 mb-4 relative z-10 px-6">
+                            It was a pleasure to watch you create magic from afar for the conference you coordinated. Thank you, Tesla, for being the leader that you are. Now everyone knows like I do that nothing gets done without you!
+                        </blockquote>
+                        <span class="quote-mark right">"</span>
+                        <div class="flex items-center mt-6 pl-6">
+                            <!-- Manager icon instead of photo -->
+                            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-user-tie text-green-600"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="font-semibold">PrimeroEdge Marketing Manager</p>
+                                <p class="text-sm text-gray-600">Malaiaka Jenkins</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- CTA Section -->
+                <section class="bg-gradient-to-r from-green-600 to-green-400 text-white p-8 rounded-lg shadow-lg mb-16">
+                    <div class="text-center">
+                        <h2 class="text-2xl font-bold mb-4">Want to see more of my work?</h2>
+                        <p class="mb-6">Check out my other case studies or get in touch to discuss your project.</p>
+                        <div class="flex flex-col sm:flex-row justify-center gap-4">
+                            <a href="https://teslacadena.com" target="_blank" class="bg-white text-green-600 hover:bg-gray-100 font-medium py-3 px-6 rounded-lg transition duration-300 flex items-center justify-center">
+                                <i class="fas fa-briefcase mr-2"></i> View Portfolio
+                            </a>
+                            <a href="https://calendly.com/teslacadena" target="_blank" class="bg-transparent border-2 border-white hover:bg-white hover:text-green-600 font-medium py-3 px-6 rounded-lg transition duration-300 flex items-center justify-center">
+                                <i class="fas fa-calendar-alt mr-2"></i> Schedule a Call
+                            </a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Back to Top Button -->
+    <a href="#top" class="back-to-top bg-green-600 hover:bg-green-700 text-white p-3 rounded-full shadow-lg">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+    
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Active link highlighting for TOC
+        const sections = document.querySelectorAll('section[id]');
+        const tocLinks = document.querySelectorAll('.toc-link');
+        
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                const sectionHeight = section.clientHeight;
+                
+                if (pageYOffset >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Show/hide back to top button
+            const backToTopButton = document.querySelector('.back-to-top');
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+        
+        // Make PDF download button functional
+        document.querySelector('a[href="#"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert("PDF download functionality would be implemented here. In a real implementation, this would download the case study PDF.");
+        });
+    </script>
 </body>
-
 </html>
